@@ -38,11 +38,13 @@ Validation Protocol: VP-TTT-UI-CTRL-001
         :value="currentStarter"
         @change="onStarterChange"
         aria-label="Starting player"
+        aria-describedby="starter-desc"
         class="px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-blue-200"
       >
-        <option value="X">X</option>
-        <option value="O">O</option>
+        <option value="X">Knight (X)</option>
+        <option value="O">Queen (O)</option>
       </select>
+      <span id="starter-desc" class="sr-only">Select which marker starts: Knight for player X, Queen for player O.</span>
     </div>
 
     <div class="flex gap-2">
