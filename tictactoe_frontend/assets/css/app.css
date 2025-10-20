@@ -1,3 +1,6 @@
 :root {
   /* Reserved for future global CSS; theme variables live in app.vue */
 }
+
+/* Note: Avoid overriding display/grid utility classes globally.
+   Board component enforces grid with explicit class and scoped CSS. */

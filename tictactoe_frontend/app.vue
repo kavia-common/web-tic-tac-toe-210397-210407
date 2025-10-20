@@ -47,6 +47,9 @@ Validation Protocol: VP-TTT-UI-001
  * Provides global theme CSS variables and base layout.
  */
 const year = new Date().getFullYear()
+
+// Explicitly import global CSS to ensure availability in all routes
+import '~/assets/css/app.css'
 </script>
 
 <style>

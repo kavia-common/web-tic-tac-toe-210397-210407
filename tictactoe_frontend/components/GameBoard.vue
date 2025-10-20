@@ -30,11 +30,15 @@ Validation Protocol: VP-TTT-UI-BOARD-001
       </template>
     </div>
 
-    <div class="grid grid-cols-3 gap-2" role="grid" aria-label="Board">
+    <div
+      class="ttt-board grid grid-cols-3 gap-2"
+      role="grid"
+      aria-label="Board"
+    >
       <button
         v-for="(cell, idx) in board"
         :key="idx"
-        class="w-24 h-24 sm:w-28 sm:h-28 rounded-lg border border-gray-200 bg-[var(--ttt-surface)] shadow-sm hover:shadow-md transition-all flex items-center justify-center text-3xl sm:text-4xl font-bold"
+        class="ttt-cell rounded-lg border border-gray-200 bg-[var(--ttt-surface)] shadow-sm hover:shadow-md transition-all flex items-center justify-center text-3xl sm:text-4xl font-bold"
         role="gridcell"
         :aria-label="getCellAria(idx, cell)"
         :aria-disabled="isGameOver || !!cell"
@@ -87,3 +91,39 @@ function getCellAria(idx: number, val: 'X' | 'O' | '' | null) {
   return `Row ${row}, Column ${col}, ${content}`
 }
 </script>
+
+<style scoped>
+/* Ensure the board is rendered as a 3x3 grid even if global resets try to override */
+.ttt-board {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0.5rem; /* matches gap-2 */
+  max-width: 20.5rem; /* constrain on small screens: 3 * 6.5rem + gaps */
+}
+
+@media (min-width: 640px) {
+  .ttt-board {
+    max-width: 25.5rem; /* 3 * 8.5rem + gaps for sm screens */
+  }
+}
+
+/* Cells: keep square aspect ratio and responsive sizing */
+.ttt-cell {
+  width: 6.5rem;   /* ~w-26, between w-24 and w-28 for better fit */
+  aspect-ratio: 1 / 1;
+}
+
+@media (min-width: 640px) {
+  .ttt-cell {
+    width: 8.5rem;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+/* Defensive: if any global flex/column reset leaked, counteract it here */
+.ttt-board > .ttt-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
